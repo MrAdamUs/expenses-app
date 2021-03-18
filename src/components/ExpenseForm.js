@@ -11,6 +11,7 @@ export default class ExpenseForm extends Component {
     amount: '',
     createdAt: moment(),
     calFocused: false,
+    error: '',
   };
   onDescreiptionChange = (e) => {
     const description = e.target.value;
@@ -24,12 +25,14 @@ export default class ExpenseForm extends Component {
 
   onAmountChange = (e) => {
     const amount = e.target.value;
-    if (amount.match(/^\d*(\.\d{0,2})?$/)) {
+    if (!amount || amount.match(/^\d{1,}(\.\d{0,2})?$/)) {
       this.setState(() => ({ amount }));
     }
   };
   onDateChange = (createdAt) => {
-    this.setState(() => ({ createdAt }));
+    if (createdAt) {
+      this.setState(() => ({ createdAt }));
+    }
   };
 
   onFocusChange = ({ focused }) => {
@@ -37,12 +40,32 @@ export default class ExpenseForm extends Component {
       calFocused: focused,
     }));
   };
+
+  onSubmit = (e) => {
+    e.preventDefault();
+
+    if (!this.state.description || !this.state.amount) {
+      this.setState(() => ({
+        error: 'Please provide description and amount.',
+      }));
+    } else {
+      this.setState(() => ({ error: '' }));
+      this.props.onSubmit({
+        description: this.state.description,
+        amount: parseFloat(this.state.amount, 10) * 100,
+        createdAt: this.state.createdAt.valueOf(),
+        note: this.state.note,
+      });
+      console.log('submitted');
+    }
+  };
+
   render() {
     return (
       <div>
-        <h1>Expense Form</h1>
+        {this.state.error && <p>{this.state.error}</p>}
         <div>
-          <form>
+          <form onSubmit={this.onSubmit}>
             <input
               type='text'
               placeholder='Description'
