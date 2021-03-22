@@ -23,7 +23,6 @@
   },
   "scripts": {
     "start": "node server/server.js",
-    "heroku-postbuild": "npm run build:prod",
     "build": "react-scripts build",
     "test": "jest --watch",
     "eject": "react-scripts eject"
