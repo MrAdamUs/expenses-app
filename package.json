@@ -10,6 +10,7 @@
     "express": "^4.17.1",
     "moment": "^2.29.1",
     "node-sass": "^5.0.0",
+    "numeral": "^2.0.6",
     "react": "^16.14.0",
     "react-addons-shallow-compare": "^15.6.3",
     "react-dates": "^21.8.0",
@@ -25,7 +26,8 @@
     "start": "node server/server.js",
     "build": "react-scripts build",
     "test": "jest --watch",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev-server": "react-scripts start"
   },
   "jest": {
     "verbose": true
