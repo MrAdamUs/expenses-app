@@ -22,7 +22,8 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server/server.js",
+    "heroku-postbuild": "npm run build:prod",
     "build": "react-scripts build",
     "test": "jest --watch",
     "eject": "react-scripts eject"
