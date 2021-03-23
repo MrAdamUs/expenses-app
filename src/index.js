@@ -4,21 +4,19 @@ import './styles/styles.scss';
 import App from './App';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
+import { startSetExpenses } from './actions/expenses';
 
-import getVisibleExpenses from './selectors/expenses';
 import './firebase/firebase';
 
 const store = configureStore();
 
-const state = store.getState();
-const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
-
-console.log(visibleExpenses);
-
-ReactDOM.render(
+const jsx = (
   <Provider store={store}>
     <App />
-  </Provider>,
-
-  document.getElementById('root')
+  </Provider>
 );
+ReactDOM.render(<p>Loading</p>, document.getElementById('root'));
+
+store.dispatch(startSetExpenses()).then(() => {
+  ReactDOM.render(jsx, document.getElementById('root'));
+});
